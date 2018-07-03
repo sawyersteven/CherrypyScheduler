@@ -62,7 +62,7 @@ This tells the plugin to run `my_scheduled_task`. The start time is `0:00` (midn
 
 Open `localhost:8080` in your browser and you'll see the counter increase every 30 seconds.
 
-Many more methods are available for interacting with the scheduler and scheduled tasks. See the wiki ## TODO LINK ## for more information.
+Many more methods are available for interacting with the scheduler and scheduled tasks. See the [wiki](https://github.com/sawyersteven/CherrypyScheduler/wiki) for more information.
 
 ### How it Works
 
