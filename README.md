@@ -74,7 +74,7 @@ Tasks are called using a threading.Timer, so the main loop of the Cherrypy serve
 
 A record is kept for each task indicating the time-stamp of the last time the task was executed. This prevents tasks from being skipped if their start time is set to the start time of the server but the server has reset before their next execution would have been called.
 
-Much more information is available in the wiki ## TODO LINK ##
+Much more information is available in the [wiki](https://github.com/sawyersteven/CherrypyScheduler/wiki).
 
 
 ### Testing
