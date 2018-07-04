@@ -3,6 +3,8 @@
 # CherrypyScheduler
 CherrypyScheduler creates a simple interface for creating repeating events on a [Cherrypy](https://github.com/cherrypy/cherrypy) webserver.
 
+CherrypyScheduler is not associated with the Cherrypy development team.
+
 ### Installation
 CherrypyScheduler has been tested on Python 3.4.0 and is not guaranteed to run at all on lower versions.
 
