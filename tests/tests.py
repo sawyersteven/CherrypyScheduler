@@ -122,7 +122,7 @@ class TestScheduler(unittest.TestCase):
 
 class ServerRoot(object):
     @cherrypy.expose
-    def index(self):
+    def index(self):  # pragma: no cover
         return 'Test server running'
 
 
