@@ -8,7 +8,7 @@ from cherrypy.process import plugins
 logging = logging.getLogger('CPTaskScheduler')
 
 
-class _Record(object):
+class _Record:
     ''' Default tasks record handler
     Will read/write from/to ./tasks.json
     '''
@@ -112,7 +112,7 @@ class SchedulerPlugin(plugins.SimplePlugin):
 
         return SchedulerPlugin.__ScheduledTask(hour, minute, interval, task, auto_start, name)
 
-    class __ScheduledTask(object):
+    class __ScheduledTask:
         ''' Class that creates a new scheduled task.
 
         __init__:
@@ -245,9 +245,9 @@ class SchedulerPlugin(plugins.SimplePlugin):
             now = now.replace(microsecond=0)
 
             if manual:
-                logging.info('== Executing Task: {} Per User Command =='.format(self.name))
+                logging.info(f'== Executing Task: {self.name} Per User Command ==')
             else:
-                logging.info('== Executing Scheduled Task: {} =='.format(self.name))
+                logging.info(f'== Executing Scheduled Task: {self.name} ==')
 
             if self.running:
                 logging.warning('Task {} is already running, cancelling execution.')
@@ -263,16 +263,16 @@ class SchedulerPlugin(plugins.SimplePlugin):
             try:
                 self.task()
             except Exception as _:  # noqa
-                logging.warning('Scheduled Task {} Failed:'.format(self.name), exc_info=True)
+                logging.warning(f'Scheduled Task {self.name} Failed:', exc_info=True)
             self.running = False
             self.last_execution = str(now)
             SchedulerPlugin.record[self.name] = {'last_execution': str(now)}
             SchedulerPlugin.record_handler.write(self.name, str(now))
 
             if manual:
-                logging.info('== Finished Task: {} =='.format(self.name))
+                logging.info(f'== Finished Task: {self.name} ==')
             else:
-                logging.info('== Finished Scheduled Task: {} =='.format(self.name))
+                logging.info(f'== Finished Scheduled Task: {self.name} ==')
 
         def start(self):
             ''' Starts timer Thread for task '''
@@ -292,8 +292,8 @@ class SchedulerPlugin(plugins.SimplePlugin):
             '''
 
             if self.timer and self.timer.is_alive():
-                logging.info('Stopping scheduled task {}.'.format(self.name))
-                print('Stopping scheduled task: {}'.format(self.name))
+                logging.info(f'Stopping scheduled task {self.name}.')
+                print(f'Stopping scheduled task: {self.name}')
                 self.timer.cancel()
 
         def reload(self, hr, min, interval, auto_start=True):
@@ -312,7 +312,7 @@ class SchedulerPlugin(plugins.SimplePlugin):
             Returns bool
             '''
 
-            logging.info('Reloading scheduler for {}'.format(self.name))
+            logging.info(f'Reloading scheduler for {self.name}')
             self.stop()
             try:
                 self.__init__(hr, min, interval, self.task, auto_start=auto_start, name=self.name)
@@ -335,7 +335,7 @@ class SchedulerPlugin(plugins.SimplePlugin):
             Does not return
             '''
 
-            logging.info('Restarting schduled task {}'.format(self.name))
+            logging.info(f'Restarting schduled task {self.name}')
             self.stop()
 
             self.__init__(*self._init_args)
@@ -355,7 +355,7 @@ class SchedulerPlugin(plugins.SimplePlugin):
             '''
 
             if self.running:
-                raise TimerConflictError('The task {} is currently being executed.'.format(self.name))
+                raise TimerConflictError(f'The task {self.name} is currently being executed.')
             else:
                 restart = False
                 if self.timer:
